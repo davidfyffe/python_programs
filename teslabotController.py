@@ -8,6 +8,7 @@ import DataBaseControllerFile
 from DataBaseControllerFile import DatabaseController
 import ServoControllerFile
 from ServoControllerFile import ServoController
+import espeak as talker
 
 BLUELED = 22
 REDLED = 23
@@ -54,6 +55,8 @@ def gonuts():
             sc.setServoToPosition(15-angle)
             #db.updateValue(15 -angle) 
             time.sleep(0.05)
-            
+
+def speak(text):
+    talker.say(text)            
 #gonuts()
 #flashAll()

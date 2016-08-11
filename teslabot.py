@@ -11,6 +11,7 @@ AT_BOT = "<@" + BOT_ID + ">:"
 EXAMPLE_COMMAND = "do"
 GO_NUTS_COMMAND = "gonuts"
 FLASH = "flash"
+SPEAK = "speak"
 
 # instantiate Slack & Twilio clients
 slack_client = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
@@ -40,6 +41,9 @@ def handle_command(command, channel):
         else:
             teslabotController.flashAll()
         response = "Oh ok."
+    if command.startswith(SPEAK):
+        teslabotController.speak(command[5:len(command)])
+        response = "Loud and Clear"
         
     slack_client.api_call("chat.postMessage", channel=channel,
                           text=response, as_user=True)
