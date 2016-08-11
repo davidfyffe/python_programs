@@ -15,7 +15,7 @@ class ServoController:
         
 
     def setServoToPosition(self, position):
-        print "ServoController: Setting position to ", position
+        #print "ServoController: Setting position to ", position
         self.pwm.start(position)  
         #self.pwm.ChangeDutyCycle(position)
               

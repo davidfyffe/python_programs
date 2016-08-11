@@ -15,32 +15,33 @@ class LedController:
 
     def light(self, beLight):
         if beLight == True:
-            print("blue on")
-            self.pwm.start(5.5)
-            #self.pwm.ChangeFrequency(10) # Frequency is now 5.5 Hz
+            self.pwm.start(5.5)            
             self.pwm.ChangeDutyCycle(100)  # Duty cycle is now 50%
-            #GPIO.output(self.gpio_pin, True)
         else:                
             print("blue off")
             GPIO.output(self.gpio_pin, False)
 
 
-    def flash(self, doFlash):
+    def flash(self, doFlash, sleeptime):
         if doFlash == True:
-            self.light(True)
-            print("50 at 5.5Hz")
-            #self.pwm.start(10)
-            self.pwm.ChangeFrequency(10) # Frequency is now 5.5 Hz
-            self.pwm.ChangeDutyCycle(100)  # Duty cycle is now 50%
+            self.pwm = GPIO.PWM(self.gpio_pin, 10)   # pwm is an object. This gives a neat way to control the pin.
+                                 # 10 is the frequency in Hz.
+            self.pwm.start(50)            # This 50 is the mark/space ratio or duty cycle of 50%
+                                 # Values from 0 to 100 are allowed including numbers like 33.33
+            time.sleep(sleeptime)            # Three seconds till the next change
+            self.pwm.ChangeFrequency(50)  # Frequency is now 50 Hz - LED stops flickering
         else:
             print("50 at 50Hz")
             self.pwm.ChangeFrequency(50)# Frequency is now 50 Hz
             self.light(False)
-    
+            
+       
+
 
 #print LedController.__doc__
 
-#c = LedController(23)
+#c = LedController(22)
+#c.flash(True, 0.5)
 #c.light(True)
 #time.sleep(5)
 #c.flash(True)

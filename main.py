@@ -28,6 +28,10 @@ from LedControllerFile import LedController
 import ButtonControllerFile
 from ButtonControllerFile import ButtonController
 
+import MainLogicController as mainController
+
+import DataBaseControllerFile
+from DataBaseControllerFile import DatabaseController
 
 
 def main():
@@ -46,37 +50,22 @@ def main():
     greenLed = LedController(GREENLED)
     greenButton = ButtonController(GREENSWITCH, 'up')
     
-    #print "BLUE LED"
+
     blueLed.light(True);
-    #blueLed.light(False);
-    #blueLed.flash(True);
-    #time.sleep(3)
-    
-    #blueLed.flash(False);
-    
-    #print "RED LED"
     redLed.light(True);
-    #redLed.light(False);
-    #redLed.flash(True);
-    #redLed.flash(False);
-    
-    #print "RED LED"
     greenLed.light(True);
-    #greenLed.light(False);
-    #greenLed.flash(True);
-    #greenLed.flash(False);
+
     
     redButton.registerForButtonEvent()
     blueButton.registerForButtonEvent()
     greenButton.registerForButtonEvent()
-    #redButton.myCallBack(REDSWITCH)
-    #greenButton.myCallBack(GREENSWITCH)
-    #blueButton.myCallBack(BLUESWITCH)
-    
+   
+    db = DatabaseController()
     while True:
-        print "doing nothing"
-        time.sleep(10)
-        
+        value = db.selectValue()
+        mainController.updateServoPosition(value)
+        time.sleep(0.25)
+                
     return 0
 
 if __name__ == '__main__':

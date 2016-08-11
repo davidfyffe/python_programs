@@ -12,7 +12,7 @@ class DatabaseController:
         
     def insertInitialValue(self):
         print "Database Controller: insert initial value"
-        self.conn = sqlite3.connect('localDB.db')
+        self.conn = sqlite3.connect(':memory')
         c = self.conn.cursor()
         c.execute("INSERT INTO servoposition VALUES('init', 0)")
         self.conn.commit()
@@ -40,7 +40,7 @@ class DatabaseController:
         c = self.conn.cursor()
         c.execute('''SELECT position FROM servoposition''')
         val = c.fetchone()
-        print "Database Controller: returning ", val
+        #print "Database Controller: returning ", val
         #return self.amount #
         self.conn.close()
         return val[0]
