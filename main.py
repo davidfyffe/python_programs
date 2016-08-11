@@ -21,7 +21,7 @@
 #  MA 02110-1301, USA.
 #  
 #
-
+import time
 import LedControllerFile
 from LedControllerFile import LedController
 
@@ -33,11 +33,11 @@ from ButtonControllerFile import ButtonController
 def main():
     
     BLUELED = 22
-    BLUESWITCH = 14
+    BLUESWITCH = 27
     REDLED = 23
-    REDSWITCH = 15
+    REDSWITCH = 25
     GREENLED = 24
-    GREENSWITCH = 18
+    GREENSWITCH = 6
 	
     blueLed = LedController(BLUELED)
     blueButton = ButtonController(BLUESWITCH, 'reset')
@@ -47,27 +47,36 @@ def main():
     greenButton = ButtonController(GREENSWITCH, 'up')
     
     #print "BLUE LED"
-    #blueLed.light(True);
+    blueLed.light(True);
     #blueLed.light(False);
     #blueLed.flash(True);
+    #time.sleep(3)
+    
     #blueLed.flash(False);
     
     #print "RED LED"
-    #redLed.light(True);
+    redLed.light(True);
     #redLed.light(False);
     #redLed.flash(True);
     #redLed.flash(False);
     
     #print "RED LED"
-    #greenLed.light(True);
+    greenLed.light(True);
     #greenLed.light(False);
     #greenLed.flash(True);
     #greenLed.flash(False);
     
-    redButton.myCallBack(REDSWITCH)
-    greenButton.myCallBack(GREENSWITCH)
-    blueButton.myCallBack(BLUESWITCH)
+    redButton.registerForButtonEvent()
+    blueButton.registerForButtonEvent()
+    greenButton.registerForButtonEvent()
+    #redButton.myCallBack(REDSWITCH)
+    #greenButton.myCallBack(GREENSWITCH)
+    #blueButton.myCallBack(BLUESWITCH)
     
+    while True:
+        print "doing nothing"
+        time.sleep(10)
+        
     return 0
 
 if __name__ == '__main__':

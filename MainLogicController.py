@@ -7,9 +7,9 @@ from ServoControllerFile import ServoController
 
 dutyCycleFullRight = 3
 dutyCycleFullLeft = 15
-dutyCycleTDC = 9
+dutyCycleTDC = 8
 dbController = DatabaseController()
-servoController = ServoController()
+servoController = ServoController(dutyCycleTDC)
 
 def incrementAmount(currentPosition):
     if currentPosition < dutyCycleFullLeft:

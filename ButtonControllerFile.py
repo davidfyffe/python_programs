@@ -23,6 +23,7 @@ class ButtonController:
     
     #local callback defering logic to main controller
     def myCallBack(self, channel):
+        print "Button Controller: Button pressed"
         mainlogic.myCallBack(channel, self.increment)
     
         

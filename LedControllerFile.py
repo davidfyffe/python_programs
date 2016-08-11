@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import RPi.GPIO as GPIO # Remember to run as superuser (sudo)
+import time
 
 class LedController:
         
@@ -15,7 +16,10 @@ class LedController:
     def light(self, beLight):
         if beLight == True:
             print("blue on")
-            GPIO.output(self.gpio_pin, True)
+            self.pwm.start(5.5)
+            #self.pwm.ChangeFrequency(10) # Frequency is now 5.5 Hz
+            self.pwm.ChangeDutyCycle(100)  # Duty cycle is now 50%
+            #GPIO.output(self.gpio_pin, True)
         else:                
             print("blue off")
             GPIO.output(self.gpio_pin, False)
@@ -25,8 +29,9 @@ class LedController:
         if doFlash == True:
             self.light(True)
             print("50 at 5.5Hz")
-            self.pwm.ChangeFrequency(5.5) # Frequency is now 5.5 Hz
-            self.pwm.ChangeDutyCycle(50)  # Duty cycle is now 50%
+            #self.pwm.start(10)
+            self.pwm.ChangeFrequency(10) # Frequency is now 5.5 Hz
+            self.pwm.ChangeDutyCycle(100)  # Duty cycle is now 50%
         else:
             print("50 at 50Hz")
             self.pwm.ChangeFrequency(50)# Frequency is now 50 Hz
@@ -35,5 +40,9 @@ class LedController:
 
 #print LedController.__doc__
 
-#c = LedController(22)
+#c = LedController(23)
 #c.light(True)
+#time.sleep(5)
+#c.flash(True)
+#time.sleep(5)
+
